@@ -1,0 +1,67 @@
+from sucursal import Sucursal
+from reserva import Reserva
+reservas=[]
+
+sucursal = Sucursal(42,"Plaza Huincul","Avenida Keidel 238")
+
+id_reserva = 1
+while True:
+    print("ALQUILER DE VEHICULOS")
+    print("1. Crear reserva")
+    print("2. Mostrar vehiculos")
+    print("3. Reservas Realizadas")
+    print("4. Salir")
+    
+    opcion = input("Seleccione una opcion: ")
+
+    if opcion == "1":
+        print("CREAR RESERVA")
+        cliente = input("Nombre del cliente: ")
+        print("Vehiculos disponibles:")
+        numero = 0
+        for vehiculo in sucursal.vehiculos:
+            print(numero,"-",vehiculo.marca,vehiculo.modelo,"- Patente:",vehiculo.patente)
+            numero = numero + 1
+        eleccion = int(input("Seleccione el vehiculo deseado: "))
+        
+        if eleccion >= 0 and eleccion < len(sucursal.vehiculos):
+            dias = int(input("Cantidad de dias: "))
+            vehiculo = sucursal.vehiculos[eleccion]
+            reserva = Reserva(id_reserva,cliente,vehiculo,dias)
+            reservas.append(reserva)
+            print("_"*20)
+            print("RESERVA CREADA")
+            print("ID:", reserva.id_reserva)
+            print("Cliente:", reserva.cliente)
+            print("Vehiculo:",reserva.vehiculo.marca,reserva.vehiculo.modelo)
+            print("Dias:",reserva.dias)
+            print("Total: $",reserva.calcular_total())
+            print("_"*20)
+            id_reserva = id_reserva + 1
+        else:
+            print("Vehiculo inexistente.")
+    elif opcion == "2":
+        
+        print("VEHICULOS DISPONIBLES")
+        numero = 0
+        for vehiculo in sucursal.vehiculos:
+            print(numero,"-",vehiculo.marca,vehiculo.modelo,"- Patente:",vehiculo.patente)
+            numero = numero + 1
+    elif opcion == "3":
+        print("RESERVAS REALIZADAS")
+        if len(reservas) == 0:
+            print("No hay reservas realizadas.")
+        else:
+            for reserva in reservas:
+                print("_"*20)
+                print("ID:", reserva.id_reserva)
+                print("Cliente:", reserva.cliente)
+                print("Vehiculo:", reserva.vehiculo.marca,reserva.vehiculo.modelo)
+                print("Dias:", reserva.dias)
+                print("Total: $", reserva.calcular_total())
+                print("_"*20)
+    elif opcion == "4":        
+        print("Finalizado.")
+        break
+    else:
+        print("Opcion incorrecta.")

@@ -6,8 +6,9 @@ class Cliente:
         self.telefono=telefono
         self.email=email
         self.reservas=reservas
+        self.reservas=[]
 
-    def agregar_reservas():
-
-     def obtener_reservas():
-        pass
+    def agregar_reservas(self, reservas):
+        self.reservas.append(reservas)
+     
+    
